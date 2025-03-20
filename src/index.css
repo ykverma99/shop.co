@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme{
+
+  --color-primary:#DB4444;
+  --color-secondary:#F0EEED;
+  --font-open: "Open Sans", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+}
+
+.main-bg{
+  background: url("./assets/bg-main.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #F2F0F1;
+}
