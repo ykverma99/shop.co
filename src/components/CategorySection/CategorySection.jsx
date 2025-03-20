@@ -14,14 +14,14 @@ const CategorySection = ({
   onClick,
 }) => {
   return (
-    <Container childClassName={"space-y-16"}>
+    <Container>
       <CategoryOptions
         label={label}
         button={buttonText}
         onClick={onButtonClick}
         title={title}
       />
-      <div className="flex flex-wrap items-center justify-around">
+      <div className="flex flex-wrap items-center gap-5">
         {data.map((product) => {
           return (
             <ProductCard
@@ -32,13 +32,13 @@ const CategorySection = ({
           );
         })}
       </div>
-      <div className="flex justify-center my-10">
-        {!buttonText && (
+      {!buttonText ? (
+        <div className="flex justify-center my-10">
           <Button size="lg" onClick={onClick}>
             {button}
           </Button>
-        )}
-      </div>
+        </div>
+      ) : null}
     </Container>
   );
 };

@@ -7,11 +7,10 @@ const FlippingCard = () => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleHover = () => setIsFlipped(!isFlipped);
-  console.log("flip");
 
   return (
     <div
-      className="w-[350px] h-96 perspective-1000"
+      className="w-72 h-80 perspective-1000"
       onMouseEnter={handleHover}
       onMouseLeave={handleHover}
     >

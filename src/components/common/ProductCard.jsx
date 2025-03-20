@@ -11,7 +11,6 @@ const rating = [
 ];
 
 const ProductCard = React.memo(({ productName, price }) => {
-  console.log("product card");
   return (
     <div className="space-y-2">
       <FlippingCard />
