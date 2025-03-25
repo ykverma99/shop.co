@@ -23,10 +23,12 @@ const Button = ({
   onClick,
   size = "md",
   varient = "fill",
+  ...extraprops
 }) => {
   let Component = as ?? defaultElement;
   return (
     <Component
+      {...extraprops}
       className={`${defaultStyles} ${varients[varient]} ${sizes[size]} ${className}`}
     >
       {children}
