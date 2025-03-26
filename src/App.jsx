@@ -5,12 +5,14 @@ import MainLayout from "./pages/MainLayout";
 import AuthLayout from "./components/common/AuthLayout";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Shop from "./pages/shop";
 
 const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
+        <Route path="/shop" element={<Shop />} />
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<Navigate to={"/auth/login"} />} />
           <Route path="sign-up" element={<SignUp />} />
