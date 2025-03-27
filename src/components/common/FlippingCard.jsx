@@ -15,8 +15,8 @@ const FlippingCard = () => {
       onMouseLeave={handleHover}
     >
       <div
-        className={`relative w-full h-full transition-transform duration-500 transform ${
-          isFlipped ? "rotate-y-180" : ""
+        className={`relative w-full h-full transition-transform duration-500 transform shadow-lg rounded-2xl ${
+          isFlipped ? "rotate-y-180 scale-105" : "scale-100"
         }`}
         style={{ transformStyle: "preserve-3d" }}
       >
@@ -35,9 +35,9 @@ const FlippingCard = () => {
         {/* Back Side with Blur Effect */}
         <div
           className="
-            absolute w-full h-full 
+            absolute w-full h-full shadow-2xl
             rounded-xl text-white rotate-y-180 
-             bg-black/50 backdrop-blur-md shadow-lg cursor-pointer
+             bg-black/50 backdrop-blur-md cursor-pointer
           "
           style={{ backfaceVisibility: "hidden" }}
         >
