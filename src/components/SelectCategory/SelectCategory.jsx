@@ -42,7 +42,6 @@ const SelectCategory = () => {
   const handleIsActive = (id) => {
     setactiveCategory(id);
   };
-  console.log(activeCategory);
   return (
     <Container>
       <CategoryOptions label={"Categories"} title={"Browse By Category"} />

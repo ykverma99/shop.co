@@ -20,7 +20,6 @@ const colors = [
 const sizes = ["Medium", "Large", "X-Large", "XX-Large"];
 
 const ProductDetails = () => {
-  console.log(colors.length);
   const arr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStarHalf />];
   return (
     <div className="max-w-lg space-y-2.5">

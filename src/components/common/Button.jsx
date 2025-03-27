@@ -30,6 +30,7 @@ const Button = ({
     <Component
       {...extraprops}
       className={`${defaultStyles} ${varients[varient]} ${sizes[size]} ${className}`}
+      onClick={onClick}
     >
       {children}
     </Component>
