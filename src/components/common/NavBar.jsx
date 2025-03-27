@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { IoIosHeartEmpty, IoIosSearch } from "react-icons/io";
 import { IoCartOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   const inputref = useRef(null);
@@ -72,9 +72,9 @@ const NavBar = () => {
         <div className="h-6 w-6 cursor-pointer">
           <IoIosHeartEmpty className="h-full w-full object-cover" />
         </div>
-        <div className="h-6 w-6 cursor-pointer">
+        <Link to={"/cart"} className="h-6 w-6 cursor-pointer">
           <IoCartOutline className="h-full w-full object-cover" />
-        </div>
+        </Link>
       </div>
     </nav>
   );
