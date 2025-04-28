@@ -10,6 +10,7 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 import NotFound from "./pages/NotFound";
 import CheckOut from "./pages/CheckOut";
+import ProtectedLayout from "./components/common/ProtectedLayout";
 
 const App = () => {
   return (
@@ -17,11 +18,15 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
         <Route path="/shop" element={<Shop />} />
-        <Route path="/cart" element={<Cart />} />
         <Route path="/product/:name" element={<Product />} />
-        <Route path="/checkout" element={<CheckOut />} />
 
-        {/* Auth Route */}
+        {/* Authenticate Routes */}
+        <Route element={<ProtectedLayout />}>
+          <Route path="/checkout" element={<CheckOut />} />
+          <Route path="/cart" element={<Cart />} />
+        </Route>
+
+        {/* user login signup Route */}
         <Route path="/auth" element={<AuthLayout />}>
           <Route index element={<Navigate to={"/auth/login"} />} />
           <Route path="sign-up" element={<SignUp />} />
