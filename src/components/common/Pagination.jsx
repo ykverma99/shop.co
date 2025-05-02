@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ProductCard from "./ProductCard";
+import useFetch from "../../hooks/useFetch";
 
 const Item_per_page = 9;
 
-const Pagination = ({ productData }) => {
+const Pagination = () => {
   const [currentPage, setcurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(productData.length / Item_per_page);
+  const {
+    data: productData,
+    loading: loadingFeatured,
+    error: errorFeatured,
+  } = useFetch("product");
+  const totalPages = Math.ceil(productData?.data?.length / Item_per_page);
 
   const indexOfLastItem = currentPage * Item_per_page;
   const indexOfFirstItem = indexOfLastItem - Item_per_page;
-  const currentItems = productData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = productData?.data?.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const handlePageChange = (newPage) => {
     if (newPage >= 1 && newPage <= totalPages) {
@@ -22,14 +30,15 @@ const Pagination = ({ productData }) => {
   return (
     <div className="w-full py-3">
       <div className="grid grid-cols-3 gap-4">
-        {currentItems.map((product) => (
-          <ProductCard
-            key={product.id}
-            productName={product.title}
-            price={product.price}
-            rating={product.rating}
-          />
-        ))}
+        {currentItems &&
+          currentItems.map((product) => (
+            <ProductCard
+              key={product.color._id}
+              productName={product.productName}
+              price={product.price}
+              imgSrc={product?.color?.productImages[0]}
+            />
+          ))}
       </div>
 
       <div className="flex justify-center mt-6 space-x-4">

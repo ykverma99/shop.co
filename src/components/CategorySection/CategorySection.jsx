@@ -3,6 +3,7 @@ import CategoryOptions from "../common/CategoryOptions";
 import ProductCard from "../common/ProductCard";
 import Button from "../common/Button";
 import Container from "../common/Container";
+import { Link } from "react-router-dom";
 
 const CategorySection = ({
   label,
@@ -25,8 +26,9 @@ const CategorySection = ({
         {data.map((product) => {
           return (
             <ProductCard
-              key={product.id}
-              productName={product.title}
+              key={product._id}
+              productName={product.productName}
+              imgSrc={product?.color?.productImages[0]}
               price={product.price}
             />
           );
@@ -34,9 +36,11 @@ const CategorySection = ({
       </div>
       {!buttonText ? (
         <div className="flex justify-center my-10">
-          <Button size="lg" onClick={onClick}>
-            {button}
-          </Button>
+          <Link to={"/shop"}>
+            <Button size="lg" onClick={onClick}>
+              {button}
+            </Button>
+          </Link>
         </div>
       ) : null}
     </Container>

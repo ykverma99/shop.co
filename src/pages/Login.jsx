@@ -30,7 +30,7 @@ const Login = () => {
       console.log(res);
       if (res.status == 200) {
         dispatch(login(res.data?.data?.user));
-        navigate("/");
+        navigate("/cart");
       }
     } catch (error) {
       console.log(error);

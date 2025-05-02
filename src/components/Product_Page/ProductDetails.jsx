@@ -19,12 +19,12 @@ const colors = [
 
 const sizes = ["Medium", "Large", "X-Large", "XX-Large"];
 
-const ProductDetails = () => {
+const ProductDetails = ({ productData }) => {
   const arr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStarHalf />];
   return (
     <div className="max-w-lg space-y-2.5">
       <h1 className="text-4xl font-bold tracking-wide">
-        One Life Graphic T-shirt
+        {productData?.productName}
       </h1>
       {/* ratings */}
       <div className="flex">
@@ -41,13 +41,10 @@ const ProductDetails = () => {
       </div>
       {/* price */}
       <div>
-        <p className="text-2xl font-bold">$260</p>
+        <p className="text-2xl font-bold">{productData?.price}</p>
       </div>
       {/* desc */}
-      <p className="text-gray-500 text-sm">
-        This graphic t-shirt which is perfect for any occasion. Crafted from a
-        soft and breathable fabric, it offers superior comfort and style.
-      </p>
+      <p className="text-gray-500 text-sm">{productData?.description}</p>
       <hr className="text-gray-300" />
       {/* Colors */}
       <div className="space-y-1">
@@ -55,7 +52,7 @@ const ProductDetails = () => {
 
         <div className="flex justify-start">
           <SelectColors
-            colors={colors}
+            colors={productData?.colors}
             className={`grid-cols-10`}
             h="h-7"
             w="w-7"

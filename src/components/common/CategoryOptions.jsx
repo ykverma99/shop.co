@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 const CategoryOptions = ({ label, title, button, onClick }) => {
   return (
@@ -11,7 +12,11 @@ const CategoryOptions = ({ label, title, button, onClick }) => {
 
       <div className="flex justify-between items-start">
         <h2 className="text-3xl font-semibold">{title}</h2>
-        {button && <Button onClick={onClick}>{button}</Button>}
+        {button && (
+          <Link to={"/shop"}>
+            <Button onClick={onClick}>{button}</Button>
+          </Link>
+        )}
       </div>
     </div>
   );

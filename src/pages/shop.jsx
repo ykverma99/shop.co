@@ -16,7 +16,7 @@ const shop = () => {
             <h2 className="text-xl font-semibold">Products</h2>
             <p className="text-gray-400">Showing 1-10 of 100 products</p>
           </div>
-          <Pagination productData={productData} />
+          <Pagination />
         </div>
       </div>
       <Subscribe />

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import Button from "./Button";
-import BgImg from "../../assets/bg-main.png";
+import { Link } from "react-router-dom";
 
-const FlippingCard = () => {
+const FlippingCard = ({ imgSrc }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleHover = () => setIsFlipped(!isFlipped);
@@ -26,9 +26,9 @@ const FlippingCard = () => {
           style={{ backfaceVisibility: "hidden" }}
         >
           <img
-            src={BgImg}
+            src={imgSrc}
             alt=""
-            className="h-full w-full object-cover rounded-xl"
+            className="h-full w-full object-center rounded-xl"
           />
         </div>
 
@@ -37,7 +37,7 @@ const FlippingCard = () => {
           className="
             absolute w-full h-full shadow-2xl
             rounded-xl text-white rotate-y-180 
-             bg-black/50 backdrop-blur-md cursor-pointer
+             bg-black/50 backdrop-blur-md 
           "
           style={{ backfaceVisibility: "hidden" }}
         >
@@ -45,7 +45,9 @@ const FlippingCard = () => {
             <IoIosHeartEmpty color="black" size={24} />
           </div>
           <div className="flex justify-center items-center h-full w-full ">
-            <Button className={"shadow-md "}>Add to Cart</Button>
+            <Link to={"/cart"}>
+              <Button className={"shadow-md "}>Add to Cart</Button>
+            </Link>
           </div>
         </div>
       </div>

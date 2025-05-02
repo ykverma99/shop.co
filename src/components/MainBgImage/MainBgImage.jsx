@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../common/Button";
+import { Link } from "react-router-dom";
 
 const MainBgImage = () => {
   return (
@@ -15,7 +16,9 @@ const MainBgImage = () => {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-          <Button size="lg">Shop Now</Button>
+          <Link to={"/shop"}>
+            <Button size="lg">Shop Now</Button>
+          </Link>
         </div>
       </div>
 

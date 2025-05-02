@@ -6,22 +6,27 @@ const SelectColors = ({
   h = "h-10",
   w = "w-10",
 }) => {
-  const [selectedColor, setSelectedColor] = useState(colors[0]);
-
+  const [selectedColor, setSelectedColor] = useState(
+    Array.isArray(colors) && colors?.length > 0 ? colors[0]?.hexCode : ""
+  );
   const handleColorSelect = (color) => {
     setSelectedColor(color);
   };
   return (
     <div className="flex items-center justify-center">
       <div className={`grid ${className}  gap-1 justify-center items-center`}>
-        {colors.map((color, index) => (
+        {colors?.map((color, index) => (
           <button
             key={index}
             className={`${h} ${w} rounded-full border-2 cursor-pointer 
-                ${selectedColor === color ? "border-black" : "border-gray-200"}
-          ${selectedColor === "#000000" ? "text-white" : ""} 
+                ${
+                  selectedColor === color.hexCode
+                    ? "border-black"
+                    : "border-gray-200"
+                }
+                ${color.hexCode === "#000000" ? " text-red-500" : ""}
           flex items-center justify-center`}
-            style={{ backgroundColor: color }}
+            style={{ backgroundColor: color.hexCode }}
             onClick={() => handleColorSelect(color)}
           >
             {selectedColor === color && "✓"}
