@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaStar, FaStarHalf } from "react-icons/fa";
 import SelectColors from "../common/SelectColors";
 import Sizes from "../common/Sizes";
 import Button from "../common/Button";
-import { Link } from "react-router-dom";
-
-const sizes = ["Medium", "Large", "X-Large", "XX-Large"];
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const ProductDetails = ({ productData, selectedColor, handleColorSelect }) => {
+  const [selectedSize, setselectedSize] = useState(productData?.sizes[0]);
+  const [quantity, setquantity] = useState(1);
+  const navigate = useNavigate();
+
+  const handleSize = (text) => {
+    setselectedSize(text);
+  };
+  const addToCart = async () => {
+    try {
+      const cartData = {
+        productId: productData?._id,
+        quantity,
+        colorId: selectedColor?._id,
+        sizeId: selectedSize?._id,
+      };
+      const res = await axios.post(`${backendUrl}cart`, cartData, {
+        withCredentials: true,
+      });
+      if (res.status === 200) {
+        navigate("/cart");
+      }
+    } catch (error) {
+      throw new Error("Request Failed");
+      console.log(error);
+    }
+  };
+
   const arr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStarHalf />];
   return (
     <div className="max-w-lg space-y-2.5">
@@ -53,20 +80,36 @@ const ProductDetails = ({ productData, selectedColor, handleColorSelect }) => {
       <hr className="text-gray-300" />
       <div className="space-y-1">
         <p className="text-gray-500">Select Size</p>
-        <Sizes sizes={productData?.sizes} />
+        <Sizes
+          sizes={productData?.sizes}
+          selectedSize={selectedSize}
+          handleSize={handleSize}
+        />
       </div>
       {/* Add to Cart */}
       <hr className="text-gray-300" />
       <div className="flex items-center gap-3">
         {/* quantity */}
         <div className="flex justify-around items-center bg-gray-200 w-[25%] h-10 rounded-full text-xl">
-          <button className="cursor-pointer">-</button>
-          <p>1</p>
-          <button className="cursor-pointer">+</button>
+          <button
+            onClick={() =>
+              setquantity((prev) => (prev > 1 ? (prev = prev - 1) : 1))
+            }
+            className="cursor-pointer"
+          >
+            -
+          </button>
+          <p>{quantity}</p>
+          <button
+            onClick={() => setquantity((prev) => prev + 1)}
+            className="cursor-pointer"
+          >
+            +
+          </button>
         </div>
-        <Link to={"/cart"} className="w-[70%]">
-          <Button className={"rounded-full w-full"}>Add to Card</Button>
-        </Link>
+        <Button onClick={addToCart} className={"rounded-full w-[70%]"}>
+          Add to Card
+        </Button>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ const Amount = ({ price, title, color }) => {
   return (
     <div className="flex justify-between w-full text-lg">
       <p className="text-gray-400">{title}</p>
-      <p className={`font-bold ${color}`}>{price}</p>
+      <p className={`font-bold ${color}`}> &#8377; {price}</p>
     </div>
   );
 };

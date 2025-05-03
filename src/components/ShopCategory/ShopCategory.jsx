@@ -10,7 +10,7 @@ const ShopCategory = () => {
       <Filter />
       <Price />
       <Colors />
-      <Size />
+      {/* <Size /> */}
       <Filter />
     </div>
   );
