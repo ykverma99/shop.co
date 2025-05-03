@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Title from "./Title";
 import SelectColors from "../common/SelectColors";
+import FilterColor from "../common/FilterColor";
 
 const colors = [
   "#00C853",
@@ -27,7 +28,7 @@ const Colors = () => {
       />
       {isShow && (
         <div className="pt-6 mb-6">
-          <SelectColors colors={colors} />
+          <FilterColor />
         </div>
       )}
     </div>

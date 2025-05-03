@@ -28,7 +28,9 @@ const ProductCard = React.memo(({ productName, price, imgSrc }) => {
             </div>
             <p className="text-sm">4.5/5</p>
           </div>
-          <p className="text-2xl font-semibold tracking-wide">${price}</p>
+          <p className="text-2xl font-semibold tracking-wide">
+            &#8377; {price}
+          </p>
         </div>
       </Link>
     </div>

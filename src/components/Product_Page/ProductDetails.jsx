@@ -3,23 +3,11 @@ import { FaStar, FaStarHalf } from "react-icons/fa";
 import SelectColors from "../common/SelectColors";
 import Sizes from "../common/Sizes";
 import Button from "../common/Button";
-
-const colors = [
-  "#00C853",
-  "#D50000",
-  "#FFD600",
-  "#FF6D00",
-  "#00B8D4", // First row
-  "#2962FF",
-  "#8E24AA",
-  "#EC407A",
-  "#FFFFFF",
-  "#000000", // Second row
-];
+import { Link } from "react-router-dom";
 
 const sizes = ["Medium", "Large", "X-Large", "XX-Large"];
 
-const ProductDetails = ({ productData }) => {
+const ProductDetails = ({ productData, selectedColor, handleColorSelect }) => {
   const arr = [<FaStar />, <FaStar />, <FaStar />, <FaStar />, <FaStarHalf />];
   return (
     <div className="max-w-lg space-y-2.5">
@@ -41,7 +29,7 @@ const ProductDetails = ({ productData }) => {
       </div>
       {/* price */}
       <div>
-        <p className="text-2xl font-bold">{productData?.price}</p>
+        <p className="text-2xl font-bold">&#8377; {productData?.price}</p>
       </div>
       {/* desc */}
       <p className="text-gray-500 text-sm">{productData?.description}</p>
@@ -53,6 +41,8 @@ const ProductDetails = ({ productData }) => {
         <div className="flex justify-start">
           <SelectColors
             colors={productData?.colors}
+            selectedColor={selectedColor}
+            handleColorSelect={handleColorSelect}
             className={`grid-cols-10`}
             h="h-7"
             w="w-7"
@@ -63,7 +53,7 @@ const ProductDetails = ({ productData }) => {
       <hr className="text-gray-300" />
       <div className="space-y-1">
         <p className="text-gray-500">Select Size</p>
-        <Sizes sizes={sizes} />
+        <Sizes sizes={productData?.sizes} />
       </div>
       {/* Add to Cart */}
       <hr className="text-gray-300" />
@@ -74,7 +64,9 @@ const ProductDetails = ({ productData }) => {
           <p>1</p>
           <button className="cursor-pointer">+</button>
         </div>
-        <Button className={"rounded-full w-[70%]"}>Add to Card</Button>
+        <Link to={"/cart"} className="w-[70%]">
+          <Button className={"rounded-full w-full"}>Add to Card</Button>
+        </Link>
       </div>
     </div>
   );
