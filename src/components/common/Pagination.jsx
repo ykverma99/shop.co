@@ -5,13 +5,18 @@ import useFetch from "../../hooks/useFetch";
 
 const Item_per_page = 9;
 
-const Pagination = () => {
+const Pagination = ({ colorId, styleId, sizeId }) => {
+  console.log(colorId, styleId, sizeId);
   const [currentPage, setcurrentPage] = useState(1);
   const {
     data: productData,
     loading: loadingFeatured,
     error: errorFeatured,
-  } = useFetch("product");
+  } = useFetch(
+    `product?${colorId ? `colorId=${colorId}&` : ""}${
+      styleId ? `styleId=${styleId}&` : ""
+    }${sizeId ? `sizeId=${sizeId}` : ""}`
+  );
   const totalPages = Math.ceil(productData?.data?.length / Item_per_page);
 
   const indexOfLastItem = currentPage * Item_per_page;
@@ -27,8 +32,17 @@ const Pagination = () => {
     }
   };
 
+  if (loadingFeatured) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div className="w-full py-3">
+      {!loadingFeatured && productData?.data?.length === 0 && (
+        <p className="text-center text-gray-500 py-10">
+          No products matched your filters.
+        </p>
+      )}
       <div className="grid grid-cols-3 gap-4">
         {currentItems &&
           currentItems.map((product) => (

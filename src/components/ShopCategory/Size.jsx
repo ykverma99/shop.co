@@ -13,19 +13,23 @@ const sizes = [
   "3X-Large",
 ];
 
-const Size = () => {
+const Size = ({ sizes, selectedSize, handleSize }) => {
   const [isShow, setisShow] = useState(true);
 
   return (
     <div className="mb-5">
       <Title
-        title={"Filters"}
+        title={"Sizes"}
         isShow={isShow}
         handleIsShow={() => setisShow(!isShow)}
       />
       {isShow && (
         <div className="pt-5">
-          <Sizes sizes={sizes} />
+          <Sizes
+            selectedSize={selectedSize}
+            sizes={sizes}
+            handleSize={handleSize}
+          />
         </div>
       )}
     </div>

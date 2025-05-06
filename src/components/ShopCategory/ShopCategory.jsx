@@ -4,16 +4,34 @@ import Price from "./Price";
 import Colors from "./Colors";
 import Size from "./Size";
 
-const ShopCategory = () => {
+const ShopCategory = ({
+  colors,
+  styles,
+  sizes,
+  selectedSize,
+  selectedColor,
+  selectedStyle,
+  handleSize,
+  handleStyle,
+  handleColor,
+}) => {
   return (
     <div className="border h-fit border-gray-400 w-72 px-3 rounded-xl">
-      <Filter />
-      <Price />
-      <Colors />
-      {/* <Size /> */}
-      <Filter />
+      <Filter
+        styles={styles}
+        selectedStyle={selectedStyle}
+        handleStyle={handleStyle}
+      />
+      {/* <Price /> */}
+      <Colors
+        colors={colors}
+        selectedColor={selectedColor}
+        handleColor={handleColor}
+      />
+      <Size sizes={sizes} selectedSize={selectedSize} handleSize={handleSize} />
+      {/* <Filter /> */}
     </div>
   );
 };
 
-export default ShopCategory;
+export default React.memo(ShopCategory);

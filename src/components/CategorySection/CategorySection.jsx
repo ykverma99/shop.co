@@ -23,10 +23,10 @@ const CategorySection = ({
         title={title}
       />
       <div className="flex flex-wrap items-center gap-5">
-        {data.map((product) => {
+        {data.map((product, index) => {
           return (
             <ProductCard
-              key={product._id}
+              key={`${product.productName}-${product.color?._id || index}`}
               productName={product.productName}
               imgSrc={product?.color?.productImages[0]}
               price={product.price}

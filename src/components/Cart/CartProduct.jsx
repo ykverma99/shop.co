@@ -34,6 +34,19 @@ const CartProduct = ({ item, refetch }) => {
       console.error("Failed to update cart quantity", err);
     }
   };
+  const handleRemoveAllCart = async () => {
+    try {
+      await axios.post(
+        `${backendUrl}cart/clear`,
+        {},
+        { withCredentials: true }
+      );
+      refetch();
+    } catch (error) {
+      console.log("Failed to Remove Cart", error);
+    }
+  };
+
   return (
     <div className="flex items-center gap-2 w-full py-4">
       <div className="h-24 w-28">
@@ -61,7 +74,7 @@ const CartProduct = ({ item, refetch }) => {
             </small>
           </div>
           {/* delete from cart */}
-          <div>
+          <div onClick={handleRemoveAllCart} className="cursor-pointer">
             <RiDeleteBin6Line size={20} color="red" />
           </div>
         </div>

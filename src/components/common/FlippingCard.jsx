@@ -3,7 +3,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
-const FlippingCard = ({ imgSrc }) => {
+const FlippingCard = ({ imgSrc, productName }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleHover = () => setIsFlipped(!isFlipped);
@@ -41,12 +41,12 @@ const FlippingCard = ({ imgSrc }) => {
           "
           style={{ backfaceVisibility: "hidden" }}
         >
-          <div className="bg-white float-end h-fit m-5 rounded-full  w-fit p-1">
+          {/* <div className="bg-white float-end h-fit m-5 rounded-full  w-fit p-1">
             <IoIosHeartEmpty color="black" size={24} />
-          </div>
-          <div className="flex justify-center items-center h-full w-full ">
-            <Link to={"/cart"}>
-              <Button className={"shadow-md "}>Add to Cart</Button>
+          </div> */}
+          <div className="flex justify-center items-end py-8 h-full w-full ">
+            <Link to={`/product/${productName}`}>
+              <Button className={"shadow-md "}>View Product</Button>
             </Link>
           </div>
         </div>

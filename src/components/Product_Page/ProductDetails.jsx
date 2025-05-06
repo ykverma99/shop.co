@@ -30,8 +30,8 @@ const ProductDetails = ({ productData, selectedColor, handleColorSelect }) => {
         navigate("/cart");
       }
     } catch (error) {
-      throw new Error("Request Failed");
       console.log(error);
+      throw new Error("Request Failed");
     }
   };
 
@@ -107,7 +107,10 @@ const ProductDetails = ({ productData, selectedColor, handleColorSelect }) => {
             +
           </button>
         </div>
-        <Button onClick={addToCart} className={"rounded-full w-[70%]"}>
+        <Button
+          onClick={addToCart}
+          className={"rounded-full w-[70%] active:scale-95 cursor-pointer"}
+        >
           Add to Card
         </Button>
       </div>
