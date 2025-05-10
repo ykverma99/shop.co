@@ -98,6 +98,7 @@ const NavBar = () => {
               </div>
               <div className="flex items-center gap-2 cursor-pointer">
                 <IoMdLogOut />
+                <Link to={"/order"}>Check Order</Link>
                 <p>Log Out</p>
               </div>
             </div>

@@ -14,6 +14,8 @@ import ProtectedLayout from "./components/common/ProtectedLayout";
 import ScrollToTop from "./components/common/ScrollToTop";
 import ContactUs from "./pages/ContactUs";
 import About from "./pages/About";
+import Order from "./pages/Order";
+import OrderItemDetail from "./pages/OrderItemDetail";
 
 const App = () => {
   return (
@@ -31,6 +33,8 @@ const App = () => {
           <Route element={<ProtectedLayout />}>
             <Route path="/checkout" element={<CheckOut />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/orders/:orderId" element={<OrderItemDetail />} />
           </Route>
 
           {/* user login signup Route */}
