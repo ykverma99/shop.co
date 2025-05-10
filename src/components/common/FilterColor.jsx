@@ -11,6 +11,16 @@ const FilterColor = ({
   return (
     <div className="flex items-center justify-center">
       <div className={`grid ${className}  gap-1 justify-center items-center`}>
+        {/* <p
+          className={`px-3 py-1.5 text-xs rounded-full cursor-pointer transition duration-200 ease-in-out ${
+            selectedColor?.name === ""
+              ? "bg-black text-white"
+              : "bg-gray-200 text-gray-400"
+          }`}
+          onClick={() => handleColor("")}
+        >
+          All
+        </p> */}
         {colors?.map((color, index) => (
           <button
             key={color._id}

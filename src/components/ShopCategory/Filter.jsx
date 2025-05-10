@@ -13,6 +13,16 @@ const Filter = ({ selectedStyle, styles, handleStyle }) => {
       />
       {isShow && (
         <div className="mb-5">
+          <p
+            className={`text-sm pt-2 cursor-pointer ${
+              selectedStyle?.name === ""
+                ? "text-black font-semibold"
+                : "text-gray-500"
+            }`}
+            onClick={() => handleStyle("")}
+          >
+            All
+          </p>
           {styles?.map((text) => (
             <p
               className={`text-sm pt-2 cursor-pointer ${

@@ -8,7 +8,6 @@ const CartProduct = ({ item, refetch }) => {
   const [quantity, setquantity] = useState(item?.quantity);
 
   const debouncedQuantity = useDebounce(quantity);
-
   useEffect(() => {
     if (debouncedQuantity !== item?.quantity) {
       updateQuantity();
@@ -37,7 +36,7 @@ const CartProduct = ({ item, refetch }) => {
   const handleRemoveAllCart = async () => {
     try {
       await axios.post(
-        `${backendUrl}cart/clear`,
+        `${backendUrl}cart/${item?.product?._id}`,
         {},
         { withCredentials: true }
       );

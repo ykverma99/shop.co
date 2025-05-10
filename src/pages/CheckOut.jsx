@@ -1,108 +1,70 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Container from "../components/common/Container";
-import Button from "../components/common/Button";
-import Input from "../components/Checkout/Input";
-import CheckOutProduct from "../components/Checkout/CheckOutProduct";
-import Info from "../components/Checkout/Info";
+import CartTotal from "../components/Checkout/CartTotal";
+import CheckoutForm from "../components/Checkout/CheckoutForm";
+import useFetch from "../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const CheckOut = () => {
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const { data, loading, error } = useFetch("cart");
+  const [formData, setFormData] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState("COD");
+  const navigate = useNavigate();
+
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
+  const handlePlaceOrder = useCallback(async () => {
+    const shippingInfo = {
+      fullName: formData.name,
+      address: formData.address,
+      apartment: `${formData.house || ""}`,
+      city: formData.city,
+      postalCode: formData.pincode,
+      country: "India",
+      phone: formData.mobile,
+      email: formData.email,
+    };
+
+    try {
+      const res = await axios.post(
+        `${backendUrl}order`,
+        {
+          shippingInfo,
+          paymentMethod,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      toast.success("Order placed successfully!");
+      navigate("/");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message || "Failed to place the order"
+      );
+    }
+  }, [formData, paymentMethod, navigate]);
+
   return (
     <Container childClassName={"flex justify-center"}>
       <div className="w-[80%] space-y-10 my-14">
         <h2 className="text-3xl font-semibold">Billing Details</h2>
         <div className="grid grid-cols-2">
-          <div className="space-y-6">
-            <Input
-              label={"First Name"}
-              labelFor={"name"}
-              name={"name"}
-              isRequire={true}
-            />
-            <Input
-              label={"Street Address"}
-              labelFor={"address"}
-              name={"address"}
-              isRequire={true}
-            />
-            <Input
-              label={"Apartment, floor, etc (optional)"}
-              labelFor={"house"}
-              name={"house"}
-            />
-            <Input
-              label={"Town/City"}
-              labelFor={"city"}
-              isRequire={true}
-              name={"city"}
-            />
-            <Input
-              label={"Pincode"}
-              isRequire={true}
-              labelFor={"pincode"}
-              name={"pincode"}
-            />
-            <Input
-              label={"Mobile Number"}
-              labelFor={"mobile"}
-              name={"mobile"}
-              isRequire={true}
-            />
-            <Input
-              label={"Email Address"}
-              labelFor={"email"}
-              name={"email"}
-              isRequire={true}
-            />
-          </div>
-          <div className="   space-y-5">
-            {/* Products */}
-            <div className="space-y-4">
-              <CheckOutProduct />
-              <CheckOutProduct />
-            </div>
-            {/* Pricing */}
-            <div className="space-y-2.5">
-              <Info tag={"Subtotal:"} price={"$90"} />
-              <hr className="text-gray-300" />
-              <Info tag={"Shipping:"} price={"Free"} />
-              <hr className="text-gray-300" />
-              <Info tag={"Total:"} price={"$90"} />
-            </div>
-            {/* Pricing method */}
-            <div>
-              <div className="flex gap-2 items-center">
-                <input
-                  type="radio"
-                  name="online"
-                  id="online"
-                  value="Bank"
-                  checked={paymentMethod === "Bank"}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                  className="cursor-pointer w-4 h-4"
-                />
-                <label htmlFor="online" className="cursor-pointer">
-                  Bank
-                </label>
-              </div>
-              <div className="flex gap-2 items-center">
-                <input
-                  className="cursor-pointer w-4 h-4"
-                  type="radio"
-                  name="cash"
-                  id="cash"
-                  value="Cash"
-                  checked={paymentMethod === "Cash"}
-                  onChange={(e) => setPaymentMethod(e.target.value)}
-                />
-                <label htmlFor="cash" className="cursor-pointer">
-                  Cash on Delivery
-                </label>
-              </div>
-            </div>
-            {/* confirm button */}
-            <Button className={"w-[50%]"}>Place Order</Button>
-          </div>
+          <CheckoutForm onChange={handleInputChange} />
+          <CartTotal
+            totalPrice={data?.data?.totalPrice}
+            cartItems={data?.data?.cartItems}
+            paymentMethod={paymentMethod}
+            setPaymentMethod={setPaymentMethod}
+            onPlaceOrder={handlePlaceOrder}
+          />
         </div>
       </div>
     </Container>

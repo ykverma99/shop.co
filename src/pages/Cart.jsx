@@ -14,7 +14,6 @@ const Cart = () => {
       setIsInitialLoading(false);
     }
   }, [loading]);
-
   return (
     <Container childClassName={"space-y-5 my-10"}>
       {/* Title */}
@@ -59,6 +58,7 @@ const Cart = () => {
                 ? "0"
                 : data?.data?.totalPrice + 15 - 113
             }
+            checkout={data?.data?.cartItems.length >= 1}
           />
         </div>
       </div>
