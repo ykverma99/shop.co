@@ -1,13 +1,27 @@
-import React, { useRef } from "react";
-import { IoIosHeartEmpty, IoIosSearch } from "react-icons/io";
+import React, { useRef, useState } from "react";
+import { IoIosSearch, IoMdLogOut } from "react-icons/io";
+import { FaRegUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RiLockPasswordLine } from "react-icons/ri";
 
 const NavBar = () => {
+  const [isMenu, setIsMenu] = useState(false);
   const inputref = useRef(null);
+  const isAuthenticate = useSelector((state) => state.auth.isAuthenticate);
+  const navigate = useNavigate();
 
   const handleSearchIcon = () => {
     inputref.current?.focus();
+  };
+
+  const handleUser = () => {
+    if (!isAuthenticate) {
+      navigate("/auth/login");
+      return;
+    }
+    setIsMenu((prev) => !prev);
   };
   return (
     <nav className="grid grid-cols-3 w-full h-20 border-b border-gray-200 gap-4">
@@ -69,12 +83,26 @@ const NavBar = () => {
           />
           <IoIosSearch className="cursor-text" onClick={handleSearchIcon} />
         </div>
-        <div className="h-6 w-6 cursor-pointer">
-          <IoIosHeartEmpty className="h-full w-full object-cover" />
-        </div>
         <Link to={"/cart"} className="h-6 w-6 cursor-pointer">
           <IoCartOutline className="h-full w-full object-cover" />
         </Link>
+        <div className="relative">
+          <div onClick={handleUser} className="h-6 w-6 cursor-pointer">
+            <FaRegUserCircle className="h-full w-full object-cover" />
+          </div>
+          {isMenu ? (
+            <div className="absolute flex flex-col gap-3 right-0 top-10 bg-white shadow-2xl border border-gray-200 rounded-lg w-52 p-3 transition duration-300  ease-in-out">
+              <div className="flex items-center gap-2 cursor-pointer">
+                <RiLockPasswordLine />
+                <p>Change Password</p>
+              </div>
+              <div className="flex items-center gap-2 cursor-pointer">
+                <IoMdLogOut />
+                <p>Log Out</p>
+              </div>
+            </div>
+          ) : null}
+        </div>
       </div>
     </nav>
   );

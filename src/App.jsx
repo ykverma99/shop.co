@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import CheckOut from "./pages/CheckOut";
 import ProtectedLayout from "./components/common/ProtectedLayout";
 import ScrollToTop from "./components/common/ScrollToTop";
+import ContactUs from "./pages/ContactUs";
+import About from "./pages/About";
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:name" element={<Product />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactUs />} />
 
           {/* Authenticate Routes */}
           <Route element={<ProtectedLayout />}>
