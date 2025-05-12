@@ -3,13 +3,15 @@ import { IoIosSearch, IoMdLogOut } from "react-icons/io";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoCartOutline } from "react-icons/io5";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RiLockPasswordLine } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { RiLockPasswordLine, RiShoppingBag2Line } from "react-icons/ri";
+import { logout } from "../../features/authSlice";
 
 const NavBar = () => {
   const [isMenu, setIsMenu] = useState(false);
   const inputref = useRef(null);
   const isAuthenticate = useSelector((state) => state.auth.isAuthenticate);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSearchIcon = () => {
@@ -97,8 +99,17 @@ const NavBar = () => {
                 <p>Change Password</p>
               </div>
               <div className="flex items-center gap-2 cursor-pointer">
-                <IoMdLogOut />
+                <RiShoppingBag2Line />
                 <Link to={"/order"}>Check Order</Link>
+              </div>
+              <div
+                onClick={() => {
+                  dispatch(logout());
+                  setIsMenu((prev) => !prev);
+                }}
+                className="flex items-center gap-2 cursor-pointer"
+              >
+                <IoMdLogOut />
                 <p>Log Out</p>
               </div>
             </div>
