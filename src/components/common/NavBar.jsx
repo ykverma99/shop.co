@@ -6,6 +6,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RiLockPasswordLine, RiShoppingBag2Line } from "react-icons/ri";
 import { logout } from "../../features/authSlice";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 
 const NavBar = () => {
   const [isMenu, setIsMenu] = useState(false);
@@ -28,7 +29,8 @@ const NavBar = () => {
   return (
     <nav className="grid grid-cols-3 w-full h-20 border-b border-gray-200 gap-4">
       {/* left side Nav */}
-      <NavLink to={"/"} className={"flex items-center justify-center"}>
+      <NavLink to={"/"} className={"flex items-center justify-center gap-0.5"}>
+        <HiOutlineShoppingBag size={32} />
         <h2 className="text-2xl font-bold">Shop.CO</h2>
       </NavLink>
       {/* center nav of NavLInks */}
