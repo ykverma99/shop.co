@@ -8,6 +8,7 @@ import InforCircleIcon from "../components/common/InforCircleIcon";
 import { TfiHeadphoneAlt, TfiTruck } from "react-icons/tfi";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import useFetch from "../hooks/useFetch";
+import { ShimmerSimpleGallery } from "react-shimmer-effects";
 
 const Home = () => {
   const {
@@ -21,22 +22,35 @@ const Home = () => {
     loading: loadingFeatured,
     error: errorFeatured,
   } = useFetch("product?limit=4");
+  const arr = Array(4).fill("*");
   return (
     <div className="">
       <MainBgImage />
-      <CategorySection
-        data={flashSalesData?.data || []}
-        label={"Today's"}
-        title={"Flash Sales"}
-        buttonText={"See All"}
-      />
+      {loadingFlash ? (
+        arr.map((_, idx) => (
+          <ShimmerSimpleGallery card imageHeight={300} caption key={idx} />
+        ))
+      ) : (
+        <CategorySection
+          data={flashSalesData?.data || []}
+          label={"Today's"}
+          title={"Flash Sales"}
+          buttonText={"See All"}
+        />
+      )}
       <SelectCategory />
-      <CategorySection
-        data={featuredData?.data || []}
-        label={"Today's"}
-        title={"Flash Sales"}
-        button={"See all"}
-      />
+      {loadingFeatured ? (
+        arr.map((_, idx) => (
+          <ShimmerSimpleGallery card imageHeight={300} caption key={idx} />
+        ))
+      ) : (
+        <CategorySection
+          data={featuredData?.data || []}
+          label={"Today's"}
+          title={"Flash Sales"}
+          button={"See all"}
+        />
+      )}
       <BrowseByStyle />
       <div className="flex items-center justify-center gap-52 my-20">
         <InforCircleIcon
