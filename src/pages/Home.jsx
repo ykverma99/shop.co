@@ -1,7 +1,6 @@
 import React from "react";
 import MainBgImage from "../components/MainBgImage/MainBgImage";
 import CategorySection from "../components/CategorySection/CategorySection";
-import { FaStar, FaStarHalf } from "react-icons/fa";
 import SelectCategory from "../components/SelectCategory/SelectCategory";
 import BrowseByStyle from "../components/BrowseByStyle/BrowseByStyle";
 import InforCircleIcon from "../components/common/InforCircleIcon";
@@ -9,6 +8,7 @@ import { TfiHeadphoneAlt, TfiTruck } from "react-icons/tfi";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import useFetch from "../hooks/useFetch";
 import { ShimmerSimpleGallery } from "react-shimmer-effects";
+import Container from "../components/common/Container";
 
 const Home = () => {
   const {
@@ -27,9 +27,13 @@ const Home = () => {
     <div className="">
       <MainBgImage />
       {loadingFlash ? (
-        arr.map((_, idx) => (
-          <ShimmerSimpleGallery card imageHeight={300} caption key={idx} />
-        ))
+        <Container>
+          <div className="flex flex-wrap items-center gap-5">
+            {arr.map((_, idx) => (
+              <ShimmerSimpleGallery key={idx} card imageHeight={300} caption />
+            ))}
+          </div>
+        </Container>
       ) : (
         <CategorySection
           data={flashSalesData?.data || []}
@@ -40,9 +44,13 @@ const Home = () => {
       )}
       <SelectCategory />
       {loadingFeatured ? (
-        arr.map((_, idx) => (
-          <ShimmerSimpleGallery card imageHeight={300} caption key={idx} />
-        ))
+        <Container>
+          <div className="flex flex-wrap items-center gap-5">
+            {arr.map((_, idx) => (
+              <ShimmerSimpleGallery key={idx} card imageHeight={300} caption />
+            ))}
+          </div>
+        </Container>
       ) : (
         <CategorySection
           data={featuredData?.data || []}
